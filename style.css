@@ -1,3 +1,24 @@
 #root {
-  color: red;
+  color: black;
+}
+
+#card {
+  box-shadow: 0px 8px 16px 0 rgba(9, 9, 9, 0.2);
+  transition: 0.3s;
+  width: 20rem;
+  text-align: center;
+  padding: 5px 8px;
+  height: 30rem;
+}
+
+#card:hover {
+  box-shadow: 0px 16px 32px 0 brown;
+}
+
+h3 {
+  color: brown;
+  font-weight: bolder;
+  border: 1.5px brown solid;
+  border-radius: 0.5rem;
+  padding: 1rem;
 }
