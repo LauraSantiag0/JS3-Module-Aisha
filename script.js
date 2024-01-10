@@ -1,5 +1,3 @@
-const rootElem = document.getElementById("root");
-
 const seasonNumber = () => {
   if(getOneEpisode().season < 10){
     return `S0${getOneEpisode().season}`;
@@ -15,6 +13,8 @@ const episodeNumber = () => {
 };
 
 const seasonAndEpisode = seasonNumber() + episodeNumber();
+
+const rootElem = document.getElementById("root");
 
 const card = document.getElementById("tv-episodes").content.cloneNode(true);
 
