@@ -23,7 +23,7 @@ const card = document.getElementById("tv-episodes").content.cloneNode(true);
 
 card.querySelector("h3").textContent = episode.name + " - " + seasonAndEpisode;
 card.querySelector("img").src = episode.image.medium;
-card.querySelector("[data-summary]").textContent = episode.summary;
+card.querySelector("[data-summary]").innerHTML = episode.summary;
 rootElem.appendChild(card);
 
 return card;
