@@ -33,6 +33,10 @@ const episodes = getAllEpisodes();
 
 const allEpisodes = episodes.map(tvEpisodeDetails);
 
+const footer = document.getElementById("footer");
+footer.innerText = "The data has originally come from [TVMaze.com](https://tvmaze.com/)";
+document.body.appendChild(footer);
+
 //You can edit ALL of the code here
 // function setup() {
 //   const allEpisodes = getAllEpisodes();
