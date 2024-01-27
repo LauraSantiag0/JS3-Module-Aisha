@@ -26,12 +26,59 @@ card.querySelector("img").src = episode.image.medium;
 card.querySelector("[data-summary]").innerHTML = episode.summary;
 rootElem.appendChild(card);
 
-return card;
+
+
 }
 
 const episodes = getAllEpisodes();
 
 const allEpisodes = episodes.map(tvEpisodeDetails);
+
+function addSearchInput(episodes) {
+  const rootElem = document.getElementById("root");
+
+  
+  const searchInput = document.createElement("input");
+  searchInput.type = "text";
+  searchInput.id = "search-input";
+  searchInput.placeholder = "Search episodes";
+
+  
+  const matchingCount = document.createElement("p");
+  matchingCount.id = "matching-count";
+
+  
+  searchInput.addEventListener("input", () => {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    filterEpisodes(episodes, searchTerm, rootElem, matchingCount);
+  });
+
+  
+  document.body.insertBefore(searchInput, rootElem);
+  document.body.insertBefore(matchingCount, rootElem);
+}
+
+function filterEpisodes(episodes, searchTerm, rootElem, matchingCount) {
+  const filteredEpisodes = episodes.filter((episode) => {
+    const summaryLowerCase = episode.summary.toLowerCase();
+    const nameLowerCase = episode.name.toLowerCase();
+
+    return summaryLowerCase.includes(searchTerm) || nameLowerCase.includes(searchTerm);
+  });
+
+  
+  matchingCount.textContent = `${filteredEpisodes.length} episodes match your search.`;
+
+  
+  const template = document.getElementById("tv-episodes");
+  rootElem.innerHTML = "";
+  rootElem.appendChild(template);
+
+  filteredEpisodes.map(tvEpisodeDetails);
+}
+
+addSearchInput(episodes)
+
 
 //You can edit ALL of the code here
 // function setup() {
