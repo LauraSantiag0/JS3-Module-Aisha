@@ -5,12 +5,12 @@ const allEpisodes = getAllEpisodes();
 const renderPage = (episodes) => {
   renderHeader(); // Renders the header
   renderCards(episodes); // Renders the episode cards
-}
+};
 
 // Function to render the page header
 const renderHeader = () => {
   addSearchInput(allEpisodes); // Adds the search box to the header
-}
+};
 
 // Function to render the episode cards
 function renderCards(episodes) {
@@ -18,7 +18,7 @@ function renderCards(episodes) {
   const template = document.getElementById("tv-episodes");
   root.innerHTML = "";
   root.appendChild(template);
-  
+
   // Checks if the list of episodes is empty
   if (episodes.length === 0) {
     allEpisodes.forEach((episode) => {
@@ -33,8 +33,9 @@ function renderCards(episodes) {
   }
 }
 
-// Function to create an episode card
-function createCard(episode) {
+// Function for Season and Episode number
+
+function seasonAndEpisodeNumber(episode) {
   const seasonNumber = () => {
     if (episode.season < 10) {
       return `S0${episode.season}`;
@@ -50,6 +51,14 @@ function createCard(episode) {
   };
 
   const seasonAndEpisode = seasonNumber() + episodeNumber();
+
+  return seasonAndEpisode;
+}
+
+// Function to create an episode card
+function createCard(episode) {
+  const seasonAndEpisode = seasonAndEpisodeNumber(episode);
+
   const card = document.getElementById("tv-episodes").content.cloneNode(true);
 
   card.querySelector("h3").textContent =
@@ -96,19 +105,25 @@ function filterEpisodes(episodes, searchTerm, rootElem, matchingCount) {
 // Function to create the dropdown with episode names
 function CreateDropDown(episodes) {
   const select = document.getElementById("select");
+  const option = document.createElement("option");
+  select.appendChild(option);
+
   episodes.forEach((episode) => {
+    const seasonAndEpisode = seasonAndEpisodeNumber(episode);
     const option = document.createElement("option");
     option.value = episode.name;
-    option.text = episode.name;
+    option.text = seasonAndEpisode + " - " + episode.name;
     select.appendChild(option);
   });
 
   // Event listener to handle the selection of an episode in the dropdown
   select.addEventListener("change", (event) => {
     const selectedEpisodeTitle = event.target.value;
-    const selectedEpisode = episodes.find(episode => episode.name === selectedEpisodeTitle);
+    const selectedEpisode = episodes.find(
+      (episode) => episode.name === selectedEpisodeTitle
+    );
     const rootElem = document.getElementById("root");
-    
+
     // Filters and renders only the selected episode
     renderCards([selectedEpisode]);
 
