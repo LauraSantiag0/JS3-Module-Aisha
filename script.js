@@ -1,5 +1,29 @@
+const state = {
+  films: []
+}
+
 // Constant that stores all episodes
-const allEpisodes = getAllEpisodes();
+let allEpisodes = state.films;
+// let films = [];
+
+const url = "https://api.tvmaze.com/shows/82/episodes";
+
+//fetching the films from url
+async function fetchFilms() {
+  return fetch(url).then(function(data){
+    console.log("getting the data...");
+    console.log(data);
+    return data.json();
+  });
+}
+const films = fetchFilms().then(function(films){
+  return films;
+  console.log(films);
+
+})
+console.log(films, "<--- films on line 14");
+state.films = films;
+console.log(allEpisodes, "<--- films array");
 
 // Function to render the page with episodes
 const renderPage = (episodes) => {
